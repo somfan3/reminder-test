@@ -47,4 +47,26 @@ class NotificationService {
 
     requestIOSPermissions(flutterLocalNotificationsPlugin);
   }
+
+  Future<void> showNotification({
+    required int id,
+    required String title,
+    required String body,
+    String? payload,
+  }) async {
+    await flutterLocalNotificationsPlugin.show(
+      id,
+      title,
+      body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          channelDescription: channel.description,
+          playSound: true,
+        ),
+      ),
+      payload: payload,
+    );
+  }
 }
