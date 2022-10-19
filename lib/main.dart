@@ -6,6 +6,7 @@ import 'package:test_1/screens/test/test_screen.dart';
 import 'package:test_1/services/notification_service.dart';
 import 'package:workmanager/workmanager.dart';
 
+@pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     print(
@@ -34,7 +35,6 @@ Future<void> main() async {
 
   Workmanager().initialize(
     callbackDispatcher, // The top level function, aka callbackDispatcher
-    isInDebugMode: true
   );
 
   runApp(const MyApp());
