@@ -19,6 +19,8 @@ void callbackDispatcher() {
           body:
               "Reminder: ${reminder.type} in ${reminder.time.hour}:${reminder.time.minute}");
     }
+    // NotificationService()
+    //     .showNotification(id: inputData!['id'], title: "New Reminder", body: "Reminder: ${DateTime.now()}");
 
     return Future.value(true);
   });
@@ -32,6 +34,7 @@ Future<void> main() async {
 
   Workmanager().initialize(
     callbackDispatcher, // The top level function, aka callbackDispatcher
+    isInDebugMode: true
   );
 
   runApp(const MyApp());
