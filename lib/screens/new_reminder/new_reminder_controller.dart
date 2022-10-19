@@ -2,8 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_1/app/date_extension.dart';
+import 'package:test_1/app/utils/utils.dart';
 import 'package:test_1/db/dao/reminder_dao.dart';
 import 'package:test_1/db/entities/reminder.dart';
+import 'package:test_1/screens/test/test_controller.dart';
 import 'package:workmanager/workmanager.dart';
 
 class NewReminderController extends GetxController {
@@ -27,17 +30,21 @@ class NewReminderController extends GetxController {
     var times = newReminder.time;
 
     if (isSuccess) {
+      var mili =
+          Utils.getMillisecondsDifference(DateTime.now().applied(timeOfDay));
+      print(mili * -1);
       Workmanager().registerPeriodicTask(
         "${newReminder.id}",
         "reminder",
         inputData: {
           "id": newReminder.id,
-          "type": newReminder.type,
-          "time": "${times.hour}:${times.minute}"
         },
+        tag: "${newReminder.id}",
         frequency: const Duration(minutes: 15),
-        initialDelay: const Duration(milliseconds: 10000),
+        initialDelay: Duration(milliseconds: mili * -1),
       );
+      Get.find<TestController>().getReminders();
+      Get.back();
     }
   }
 }

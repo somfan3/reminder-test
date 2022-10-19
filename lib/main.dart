@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:test_1/db/dao/reminder_dao.dart';
 import 'package:test_1/screens/test/test_screen.dart';
 import 'package:test_1/services/notification_service.dart';
 import 'package:workmanager/workmanager.dart';
 
 void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) {
+  Workmanager().executeTask((task, inputData) async {
     print(
         "Native called background task: $task  data: $inputData"); //simpleTask will be emitted here.
     if (task == "reminder") {
+      final reminder = await ReminderDao.getReminderById(inputData!['id']);
+
       NotificationService().showNotification(
-          id: inputData!['id'],
+          id: reminder!.id,
           title: "New Reminder",
-          body: "Reminder: ${inputData['type']} in ${inputData['time']}");
+          body:
+              "Reminder: ${reminder.type} in ${reminder.time.hour}:${reminder.time.minute}");
     }
 
     return Future.value(true);
@@ -27,10 +31,8 @@ Future<void> main() async {
   await NotificationService().initialize(); //
 
   Workmanager().initialize(
-      callbackDispatcher, // The top level function, aka callbackDispatcher
-      isInDebugMode:
-          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
-      );
+    callbackDispatcher, // The top level function, aka callbackDispatcher
+  );
 
   runApp(const MyApp());
 }
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TestScreen(),
+      home: TestScreen(),
     );
   }
 }

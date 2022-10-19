@@ -26,9 +26,9 @@ class Reminder {
 
     return Reminder(
       id: json['id'],
-      time: TimeOfDay(hour: times[0], minute: times[1]),
+      time: TimeOfDay(hour: int.parse(times[0]), minute: int.parse(times[1])),
       type: json['type'],
-      frequency: Frequency.fromJson(json['frequency']),
+      frequency: Frequency.fromJson(jsonDecode(json['frequency'])),
     );
   }
 
@@ -50,7 +50,7 @@ class Frequency {
         type: FrequencyType.values.firstWhere(
           (element) => element.name == json['type'],
         ),
-        days: json['days'].split(",").map((e) => int.parse(e)),
+        days: (json['days'].toString()).split(",").map((e) => int.parse(e)).toList(),
       );
 
   Map<String, dynamic> toJson() => {

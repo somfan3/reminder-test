@@ -38,4 +38,15 @@ class ReminderDao {
 
     return result != -1;
   }
+
+  static Future<Reminder?> getReminderById(int id) async {
+    final db = await PlantDB.instance.database;
+
+    final query =
+        await db?.query(TABLE_NAME, where: "id = ?", whereArgs: [id], limit: 1);
+    if (query == null) {
+      return null;
+    }
+    return Reminder.fromJson(query[0]);
+  }
 }
