@@ -41,7 +41,7 @@ class NewReminderController extends GetxController {
         },
         tag: "${newReminder.id}",
         frequency: const Duration(minutes: 15),
-        initialDelay: Duration(milliseconds: mili * -1),
+        initialDelay: Duration(minutes: 5),
       );
       Get.find<TestController>().getReminders();
       Get.back();
