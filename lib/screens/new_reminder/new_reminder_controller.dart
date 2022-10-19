@@ -33,14 +33,13 @@ class NewReminderController extends GetxController {
       var mili =
       Utils.getMillisecondsDifference(DateTime.now().applied(timeOfDay));
       print(mili * -1);
-      Workmanager().registerPeriodicTask(
+      Workmanager().registerOneOffTask(
         "${newReminder.id}",
         "reminder",
         inputData: {
           "id": newReminder.id,
         },
         tag: "${newReminder.id}",
-        frequency: const Duration(days: 1),
         initialDelay: Duration(milliseconds: mili * -1),
       );
       Get.find<TestController>().getReminders();

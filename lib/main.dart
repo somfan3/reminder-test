@@ -19,6 +19,15 @@ void callbackDispatcher() {
           title: "New Reminder",
           body:
               "Reminder: ${reminder.type} in ${reminder.time.hour}:${reminder.time.minute}");
+      Workmanager().registerOneOffTask(
+        "${reminder.id}",
+        "reminder",
+        inputData: {
+          "id": reminder.id,
+        },
+        tag: "${reminder.id}",
+        initialDelay: const Duration(days: 1),
+      );
     }
     // NotificationService()
     //     .showNotification(id: inputData!['id'], title: "New Reminder", body: "Reminder: ${DateTime.now()}");
