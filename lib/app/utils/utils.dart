@@ -3,7 +3,8 @@ class Utils {
     final currentTime = DateTime.now();
     final now = DateTime(currentTime.year, currentTime.month, currentTime.day,
         currentTime.hour, currentTime.minute);
-
-    return now.difference(date).inMilliseconds;
+    print("current time ${currentTime}");
+    print("data ${date}");
+    return (currentTime.difference(date).inMilliseconds * -1) -  currentTime.millisecond;
   }
 }

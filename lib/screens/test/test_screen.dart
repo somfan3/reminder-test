@@ -22,8 +22,9 @@ class _TestScreenState extends State<TestScreen> {
       appBar: AppBar(title: const Text("Test")),
       body: Padding(
         padding: const EdgeInsets.all(24),
-        child: Obx(() => ListView.builder(
+        child: Obx(() => ListView.separated(
             itemCount: controller.reminders.length,
+            separatorBuilder: (context, index) => SizedBox(height: 16),
             itemBuilder: (context, index) {
               return ReminderCard(reminder: controller.reminders[index]);
             })),
