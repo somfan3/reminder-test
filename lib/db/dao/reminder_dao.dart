@@ -1,3 +1,4 @@
+import 'package:test_1/app/time_extension.dart';
 import 'package:test_1/db/entities/reminder.dart';
 import 'package:test_1/db/plant_db.dart';
 
@@ -24,6 +25,7 @@ class ReminderDao {
     if (query != null) {
       reminders =
           List<Reminder>.from(query.map((e) => Reminder.fromJson(e))).toList();
+      reminders.sort((a,b) => a.time.compareTo(b.time));
     }
 
     return reminders;
