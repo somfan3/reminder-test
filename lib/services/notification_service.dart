@@ -64,6 +64,7 @@ class NotificationService {
           channel.name,
           channelDescription: channel.description,
           playSound: true,
+          visibility: NotificationVisibility.public
         ),
       ),
       payload: payload,

@@ -7,4 +7,8 @@ class Utils {
     print("data ${date}");
     return (currentTime.difference(date).inMilliseconds * -1) -  currentTime.millisecond;
   }
+
+  int createUniqueId() {
+    return DateTime.now().millisecondsSinceEpoch.remainder(100000);
+  }
 }
